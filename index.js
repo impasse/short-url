@@ -59,4 +59,4 @@ app.use(function(err, req, res, next){
 	res.render('error', { error: err.message });
 });
 
-app.listen(3000);
+app.listen(config.port);
