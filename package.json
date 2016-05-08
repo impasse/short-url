@@ -1,0 +1,18 @@
+{
+  "name": "short_url",
+  "version": "1.0.0",
+  "description": "short url",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "shyling",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "redis": "^2.6.0-2",
+    "swig": "^1.4.2"
+  }
+}
