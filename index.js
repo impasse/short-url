@@ -8,25 +8,28 @@ const config = require('./config');
 let app = express();
 
 app.engine('swig', swig.renderFile);
+app.enable('trust proxy');
 app.set('view engine', 'swig');
 app.set('views', __dirname + '/views');
 app.set('x-powered-by', false);
 
-app.use(require('morgan')('dev'));
+app.use(require('morgan')(config.loglevel));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('body-parser').urlencoded({ extended: false }));
+
+
 
 app.get('/', (req, res) => {
 	res.render('index');
 });
 
-app.post('/~new', (req, res) => {
+app.post('/', (req, res) => {
 	let url = req.body['url'] || '';
 	if (/^\w+:\/\/.+/.test(url)) {
 		db.incr().then(id => {
 			id = encoder.encode(id);
 			return db.put(id, url).then(() => {
-				res.render('result', { result: config.url_prefix + id });
+				res.render('index', { result: config.url_prefix + id });
 			});
 		}).catch(err => {
 			throw err;
@@ -36,7 +39,7 @@ app.post('/~new', (req, res) => {
 	}
 });
 
-app.get('/:url', (req, res,next) => {
+app.get('/:url', (req, res, next) => {
 	let url = req.params['url'] || '';
 	db.get(url).then((result) => {
 		if (result === null) {
@@ -50,13 +53,16 @@ app.get('/:url', (req, res,next) => {
 });
 
 //404 error handle
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
 	res.render('404');
 });
 
 //500 error handle
-app.use(function(err, req, res, next){
+app.use((err, req, res, next) => {
 	res.render('error', { error: err.message });
 });
 
-app.listen(config.port);
+app.listen(...config.bind).on('listening', function () {
+	let address = this.address();
+	console.log(`Server listen at ${address.port} on ${address.address}`);
+});

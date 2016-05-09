@@ -1,6 +1,7 @@
 module.exports = exports = {
-	url_prefix: "http://localhost:3000/",
+	url_prefix: "",
 	redis_config: [],
-	minimum: 5,
-	port: 3000
+	minimum: 1,
+	bind: [3399, '127.0.0.1'],
+	loglevel: "combined"
 }

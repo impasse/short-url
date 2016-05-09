@@ -5,8 +5,8 @@
 {% block content %}
 	<div class="container">
         <header>
-            <a href="javascript:void(0)">
-                <h1>404 Not Found</h1>
+            <a href="/">
+                <h1>短网址</h1>
             </a>
         </header>
         <section>

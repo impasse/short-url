@@ -6,10 +6,6 @@ let client = redis.createClient(...config.redis_config);
 
 //client.select(0);
 
-client.on('ready', function () {
-	console.log('Redis Ready');
-});
-
 client.on('error', function (err) {
 	console.error(err);
 });
@@ -39,7 +35,7 @@ module.exports = exports = {
 	},
 	incr: () => {
 		return new Promise(function (resolve, reject) {
-			client.incr('COUNT', function (err, res) {
+			client.incr('~COUNT', function (err, res) {
 				if (err) {
 					reject(err);
 				} else {
