@@ -9,6 +9,7 @@ let app = express();
 
 app.engine('swig', swig.renderFile);
 app.enable('trust proxy');
+app.set('etag', false);
 app.set('view engine', 'swig');
 app.set('views', __dirname + '/views');
 app.set('x-powered-by', false);
