@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
 	let url = req.body['url'] || '';
+	if (url.length > 8192){
+		throw new Error('网址过长');
+		return;
+	}
 	if (/^\w+:\/\/.+/.test(url)) {
 		db.incr().then(id => {
 			id = encoder.encode(id);
