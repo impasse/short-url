@@ -26,7 +26,8 @@
             	</div>
             	<div class="url_send">
             		<center>
-		            	<input value="生成短链" class="btn-info" name="send_url" type="submit">
+		            	<input lang="zh" value="生成短链" class="btn-info" name="send_url" type="submit">
+						<input lang="en" value="Generate short URL" class="btn-info" name="send_url" type="submit">
             		</center>
             	</div>
         	</form>
@@ -37,7 +38,8 @@
         					<a id="result_url" href="{{result}}">{{result}}</a>
         				</div>
 						<div>
-							<button onclick="javascript:document.execCommand('copy')">点击复制到剪切板</button>
+							<button lang="zh" onclick="javascript:document.execCommand('copy')">点击复制到剪切板</button>
+							<button lang="en" onclick="javascript:document.execCommand('copy')">Copy to clipboard</button>
 						</div>
 					</center>
         		</div>
@@ -46,7 +48,27 @@
         <footer>
         	<center>
         		<p class="copyright">©2016 shyling</p>
+				<a id="zh" href="#">中文</a>
+				<a id="en" href="#">English</a>
         	</center>
         </footer>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+	<script>
+	var lang = "zh";
+	$('*:lang(en)').css('display', 'none');
+	$('*:lang(zh)').css('display', 'inherit');
+	$("#en").click(function(){
+		lang = "en";
+		document.title = "URL shortener";
+		$('*:lang(en)').css('display', 'inherit');
+		$('*:lang(zh)').css('display', 'none');
+	});
+	$("#zh").click(function(){
+		lang = "zh";
+		document.title = "短网址";
+		$('*:lang(en)').css('display', 'none');
+		$('*:lang(zh)').css('display', 'inherit');
+	});
+	</script>
 {% endblock %}
