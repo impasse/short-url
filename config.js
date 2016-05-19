@@ -22,7 +22,7 @@ module.exports = exports = {
 			zh: '404-短网址'
 		},
 		generate_short_link: {
-			en: 'Gernerate short link.',
+			en: 'Generate short url.',
 			zh: '生成短链'
 		},
 		copy_to_clipboard: {
