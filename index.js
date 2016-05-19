@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
 	let url = req.body['url'] || '';
 	if (url.length > 8192){
-		throw new Error('网址过长');
+		throw new Error(config.language.url_too_long[req.locale]);
 		return;
 	}
 	if (/^\w+:\/\/.+/.test(url)) {

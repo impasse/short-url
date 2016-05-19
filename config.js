@@ -37,6 +37,10 @@ module.exports = exports = {
 			en: 'Invalid URL.',
 			zh: '网址格式错误'
 		},
+		url_too_long: {
+			en: 'The URL is too long.',
+			zh: '网址过长'
+		},
 		page_not_found: {
 			en: 'The page you requested could not be found.',
 			zh: '你要浏览的页面未找到'
