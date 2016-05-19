@@ -37,7 +37,7 @@ app.post('/', (req, res) => {
 		db.incr().then(id => {
 			id = encoder.encode(id);
 			return db.put(id, url).then(() => {
-				res.render('index', { result: config.url_prefix + id, locals:{i18n:{language: 'zh'}}});
+				res.render('index', { result: config.url_prefix + id, locals:{i18n:{language: req.locale}}});
 			});
 		}).catch(err => {
 			throw err;
