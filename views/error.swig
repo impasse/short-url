@@ -1,12 +1,12 @@
 {% extends "layout.swig" %}
 
-{% block title %}错误-短网址{% endblock %}
+{% block title %}{% i18n title_error %}SHORT URL - ERROR{% endi18n%}{% endblock %}
 
 {% block content %}
 	<div class="container">
         <header>
             <a href="/">
-                <h1>短网址</h1>
+                <h1>{% i18n title %}SHORT URL{% endi18n%}</h1>
             </a>
         </header>
         <section>

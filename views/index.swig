@@ -1,13 +1,13 @@
 {% extends "layout.swig" %}
 
-{% block title %}短网址{% endblock %}
+{% block title %}{% i18n title %}SHORT URL{% endi18n%}{% endblock %}
 
 {% block head -%}
 	{% if result %}
 		<script>
 		document.addEventListener('copy', function(e){
 			e.clipboardData.setData('text/plain', document.querySelector("#result_url").innerText);
-			alert("已复制到剪切板");
+			alert("{% i18n it_has_been_copied_to_the_clipboard %}COPIED TO CLIPBOARD{% endi18n%}");
             e.preventDefault();
 			});
 		</script>
@@ -26,8 +26,7 @@
             	</div>
             	<div class="url_send">
             		<center>
-		            	<input lang="zh" value="生成短链" class="btn-info" name="send_url" type="submit">
-						<input lang="en" value="Generate short URL" class="btn-info" name="send_url" type="submit">
+		            	<input value="{% i18n generate_short_link %}GENERATE SHORT LINK{% endi18n%}" class="btn-info" name="send_url" type="submit">
             		</center>
             	</div>
         	</form>
@@ -38,8 +37,7 @@
         					<a id="result_url" href="{{result}}">{{result}}</a>
         				</div>
 						<div>
-							<button lang="zh" onclick="javascript:document.execCommand('copy')">点击复制到剪切板</button>
-							<button lang="en" onclick="javascript:document.execCommand('copy')">Copy to clipboard</button>
+							<button onclick="javascript:document.execCommand('copy')">{% i18n copy_to_clipboard %}COPY TO CLIPBOARD{% endi18n%}</button>
 						</div>
 					</center>
         		</div>
@@ -48,27 +46,7 @@
         <footer>
         	<center>
         		<p class="copyright">©2016 shyling</p>
-				<a id="zh" href="#">中文</a>
-				<a id="en" href="#">English</a>
         	</center>
         </footer>
 	</div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
-	<script>
-	var lang = "zh";
-	$('*:lang(en)').css('display', 'none');
-	$('*:lang(zh)').css('display', 'inherit');
-	$("#en").click(function(){
-		lang = "en";
-		document.title = "URL shortener";
-		$('*:lang(en)').css('display', 'inherit');
-		$('*:lang(zh)').css('display', 'none');
-	});
-	$("#zh").click(function(){
-		lang = "zh";
-		document.title = "短网址";
-		$('*:lang(en)').css('display', 'none');
-		$('*:lang(zh)').css('display', 'inherit');
-	});
-	</script>
 {% endblock %}

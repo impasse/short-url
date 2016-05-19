@@ -4,8 +4,15 @@ const swig = require('swig');
 const db = require('./db');
 const encoder = require('./encoder');
 const config = require('./config');
+const swig_i18n = require('swig-i18n');
+const locale = require("locale");
 
 let app = express();
+
+swig_i18n.init(config.language);
+
+console.log(config.language)
+console.log(swig_i18n);
 
 app.engine('swig', swig.renderFile);
 app.enable('trust proxy');
@@ -17,11 +24,10 @@ app.set('x-powered-by', false);
 app.use(require('morgan')(config.loglevel));
 app.use(express.static(path.join(__dirname, 'public'),{ etag: false }));
 app.use(require('body-parser').urlencoded({ extended: false }));
-
-
+app.use(locale(config.supported_languages));
 
 app.get('/', (req, res) => {
-	res.render('index');
+	res.render('index', {i18n:{language: req.locale }});
 });
 
 app.post('/', (req, res) => {
@@ -34,13 +40,13 @@ app.post('/', (req, res) => {
 		db.incr().then(id => {
 			id = encoder.encode(id);
 			return db.put(id, url).then(() => {
-				res.render('index', { result: config.url_prefix + id });
+				res.render('index', { result: config.url_prefix + id, locals:{i18n:{language: 'zh'}}});
 			});
 		}).catch(err => {
 			throw err;
 		});
 	} else {
-		throw new Error('网址格式错误');
+		throw new Error(config.language.invalid_url[req.locale]);
 	}
 });
 
@@ -59,12 +65,12 @@ app.get('/:url', (req, res, next) => {
 
 //404 error handle
 app.use((req, res, next) => {
-	res.render('404');
+	res.render('404', {i18n:{language: req.locale }});
 });
 
 //500 error handle
 app.use((err, req, res, next) => {
-	res.render('error', { error: err.message });
+	res.render('error', { error: err.message, i18n:{language: req.locale }});
 });
 
 app.listen(...config.bind).on('listening', function () {

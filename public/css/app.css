@@ -84,8 +84,8 @@ header {
     text-align: center;
 }
 
-input.btn-info:lang(en) {
-	width: 200px;
+input.btn-info {
+	width: auto !important
 }
 
 input[type="submit"]:hover, .url_send input:hover {
