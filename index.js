@@ -11,9 +11,6 @@ let app = express();
 
 swig_i18n.init(config.language);
 
-console.log(config.language)
-console.log(swig_i18n);
-
 app.engine('swig', swig.renderFile);
 app.enable('trust proxy');
 app.set('etag', false);
