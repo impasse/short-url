@@ -7,9 +7,9 @@
 
 [Live Demo](http://halo.red/)
 
-## Usege
+## Useage
 
-1、Clone this repos
+1、Clone this repository
 
 ```
 git clone https://github.com/lingmm/short-url.git
@@ -20,7 +20,7 @@ git clone https://github.com/lingmm/short-url.git
 ```
 npm install
 ```
-3、modify `url_prefix` and `bind` field for `your domain` or `your ip` and `port`. 
+3、modify `url_prefix` and `bind` field for `your domain` or `your ip` and `port`.
 
 4、Start server
 
@@ -29,5 +29,3 @@ npm start
 ```
 
 **Please make sure that you have redis installed.**
-
-

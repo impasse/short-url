@@ -84,6 +84,10 @@ header {
     text-align: center;
 }
 
+input.btn-info {
+	width: auto !important
+}
+
 input[type="submit"]:hover, .url_send input:hover {
     // background-image: -webkit-gradient(linear,left top,left bottom,from(#f8f8f8),to(#f1f1f1));
     // background-image: -webkit-linear-gradient(top,#f8f8f8,#f1f1f1);
