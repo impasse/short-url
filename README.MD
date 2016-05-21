@@ -32,12 +32,12 @@ npm install
 
 ## Configuration
 
-edit the `config.json`,then
->*url_prefix* for the url prefix when generate short url
->*redis_config* redis connection config
->*minimum* the minimum length when generate short url
->*bind* the server will bind this address
->*loglevel* the log level of request
+edit the `config.json`
+- *url_prefix* for the url prefix when generate short url
+- *redis_config* redis connection config
+- *minimum* the minimum length when generate short url
+- *bind* the server will bind this address
+- *loglevel* the log level of request
 
 ## Run
 
