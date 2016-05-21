@@ -1,54 +1,54 @@
 const express = require('express');
 const path = require('path');
 const swig = require('swig');
+
+
 const db = require('./db');
 const encoder = require('./encoder');
 const config = require('./config');
-const swig_i18n = require('swig-i18n');
-const locale = require("locale");
+const i18n = require('./i18n');
 
-let app = express();
-
-swig_i18n.init(config.language);
+const app = express();
 
 app.engine('swig', swig.renderFile);
+
 app.enable('trust proxy');
-app.set('etag', false);
+app.disable('etag');
+app.disable('x-powered-by');
 app.set('view engine', 'swig');
-app.set('views', __dirname + '/views');
-app.set('x-powered-by', false);
+app.set('views', path.join(__dirname, '/views'));
 
 app.use(require('morgan')(config.loglevel));
-app.use(express.static(path.join(__dirname, 'public'),{ etag: false }));
+app.use(express.static(path.join(__dirname, 'public'), { etag: false }));
 app.use(require('body-parser').urlencoded({ extended: false }));
-app.use(locale(config.supported_languages));
+app.use(i18n);
 
 app.get('/', (req, res) => {
-	res.render('index', {i18n:{language: req.locale }});
+	res.render('index');
 });
 
 app.post('/', (req, res) => {
-	let url = req.body['url'] || '';
-	if (url.length > 8192){
-		throw new Error(config.language.url_too_long[req.locale]);
+	const url = req.body['url'] || '';
+	if (url.length > 8192) {
+		throw new Error(res._.url_too_long);
 		return;
 	}
 	if (/^\w+:\/\/.+/.test(url)) {
 		db.incr().then(id => {
 			id = encoder.encode(id);
 			return db.put(id, url).then(() => {
-				res.render('index', { result: config.url_prefix + id, locals:{i18n:{language: req.locale}}});
+				res.render('index', { result: config.url_prefix + id });
 			});
 		}).catch(err => {
 			throw err;
 		});
 	} else {
-		throw new Error(config.language.invalid_url[req.locale]);
+		throw new Error(res._.invalid_url);
 	}
 });
 
 app.get('/:url', (req, res, next) => {
-	let url = req.params['url'] || '';
+	const url = req.params['url'] || '';
 	db.get(url).then((result) => {
 		if (result === null) {
 			next();
@@ -62,15 +62,16 @@ app.get('/:url', (req, res, next) => {
 
 //404 error handle
 app.use((req, res, next) => {
-	res.render('404', {i18n:{language: req.locale }});
+	res.render('404');
 });
 
 //500 error handle
 app.use((err, req, res, next) => {
-	res.render('error', { error: err.message, i18n:{language: req.locale }});
+	if (err)
+		res.render('error', { error: err.message });
 });
 
 app.listen(...config.bind).on('listening', function () {
-	let address = this.address();
+	const address = this.address();
 	console.log(`Server listen at ${address.port} on ${address.address}`);
 });

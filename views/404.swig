@@ -1,19 +1,14 @@
 {% extends "layout.swig" %}
 
-{% block title %}{% i18n title_404 %}SHORT URL - 404{% endi18n%}{% endblock %}
+{% block title %}{{_.title_404}}{% endblock %}
 
 {% block content %}
-	<div class="container">
-        <header>
-            <a href="/">
-                <h1>{% i18n title %}SHORT URL{% endi18n%}</h1>
-            </a>
-        </header>
-        <section>
-            <div class="tab_wrap">{% i18n page_not_found %}PAGE NOT FOUND{% endi18n%}</div>
-        </section>
-        <footer>
-            <p class="copyright">©2016 shyling</p>
-        </footer>
-    </div>
+    <header>
+        <a href="/">
+            <h1>{{_.title}}</h1>
+        </a>
+    </header>
+    <section>
+        <div class="tab_wrap">{{_.page_not_found}}</div>
+    </section> 
 {% endblock %}
