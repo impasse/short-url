@@ -10,7 +10,7 @@ const Gen = (locale) => {
 
 let supported = [];
 
-Object.keys(language).forEach((i) => {
+Reflect.ownKeys(language).forEach((i) => {
 	for (let j in language[i]) {
 		if (supported.indexOf(j) === -1) {
 			supported.push(j);
