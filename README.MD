@@ -1,30 +1,46 @@
 # Short URL
 
-**Node.js version must be 6.0 above**
+**Node.js version >= 6.0**
 
 ## Demo
 
 [_Live Demo_](http://halo.red/)
 
-## Useage
+## Install
 
-1、Clone this repository
+#### Install Redis
+
+```
+apt-get install redis # ubuntu/debian
+dnf install redis # fedroa
+yum install redis # rhel/centos
+pacman -S redis # archlinux
+```
+
+#### Clone this repository
 
 ```
 git clone https://github.com/lingmm/short-url.git
 ```
 
-2、Install the dependencies
+#### Install the dependencies
 
 ```
+cd short-url
 npm install
 ```
-3、edit the `config.json`, modify `url_prefix` and `bind` field for `your domain` or `your ip` and `port`.
 
-4、Start server
+## Configuration
+
+edit the `config.json`,then
+>*url_prefix* for the url prefix when generate short url
+>*redis_config* redis connection config
+>*minimum* the minimum length when generate short url
+>*bind* the server will bind this address
+>*loglevel* the log level of request
+
+## Run
 
 ```
 npm start
 ```
-
-**Please make sure that you have redis installed.**
