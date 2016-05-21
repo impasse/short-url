@@ -3,10 +3,10 @@ const path = require('path');
 const swig = require('swig');
 
 
-const db = require('./db');
-const encoder = require('./encoder');
 const config = require('./config');
-const i18n = require('./i18n');
+const db = require('./utils/db');
+const encoder = require('./utils/encoder');
+const i18n = require('./i18n/i18n');
 
 const app = express();
 
@@ -48,8 +48,7 @@ app.post('/', (req, res) => {
 });
 
 app.get('/:url', (req, res, next) => {
-	const url = req.params['url'] || '';
-	db.get(url).then((result) => {
+	db.get(req.params['url']).then((result) => {
 		if (result === null) {
 			next();
 		} else {

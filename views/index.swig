@@ -33,7 +33,7 @@
 				<div id="success_result">
 					<center>
         				<div class="result">
-        					<a id="result_url" href="{{result}}">{{result}}</a>
+        					<a id="result_url" target="__blank" href="{{result}}">{{result}}</a>
         				</div>
 						<div>
 							<button onclick="javascript:document.execCommand('copy')">{{_.copy_to_clipboard}}</button>
