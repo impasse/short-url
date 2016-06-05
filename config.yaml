@@ -1,2 +1,6 @@
-config:
-  prefix: 'http://localhost:3000/'
+url_prefix: 'http://localhost:3000/'
+redis_config:
+  host: '127.0.0.1'
+  port: 6379
+  db: 0
+  timeout: 2
