@@ -3,11 +3,12 @@ require 'redis'
 require 'yaml'
 
 module HashHelper
+    
     CHARS = %w(
         0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J	K L M N O P Q R S T U
         V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z
     )
-    def encode(i)
+    def self.encode(i)
         tmp = ''
         while(i>0)
             tmp = CHARS[i % CHARS.length] + tmp;
@@ -15,15 +16,17 @@ module HashHelper
         end
         tmp
     end
-    def decode(s)
+    def self.decode(s)
         # unimplements
     end
 end
 
 module Config
+
+    @@all = nil
     def self.all
-        @all = YAML.load_file './config.yaml' if @all.nil?
-        @all
+        @@all = YAML.load_file './config.yaml' if @@all.nil?
+        @@all
     end
     def self.method_missing(name,*args,&block)
         self.all[name.id2name]
@@ -31,12 +34,11 @@ module Config
 end
 
 module DBHelper
-    include HashHelper
     
     @@connection = Redis.new Config.redis_config
-    @@counter = :'~COUNT'
+    COUNTER = '~COUNT'.freeze
     def put_url(url)
-        s = encode(@@connection.incr @@counter)
+        s = HashHelper.encode(@@connection.incr COUNTER)
         @@connection.set s,url
         s
     end
